@@ -7,8 +7,6 @@
 @interface AppDelegate () {
    RBGWindowController *_windowController;
 }
-
-@property (weak) IBOutlet NSWindow *window;
 @end
 
 @implementation AppDelegate
