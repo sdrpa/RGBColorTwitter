@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6751"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="RBGWindowController">
+            <connections>
+                <outlet property="arrayController" destination="SVJ-qp-MgD" id="HdI-II-dXP"/>
+                <outlet property="window" destination="QvC-M9-y7g" id="pNW-RD-qxX"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <window title="@RGB_Colours" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" animationBehavior="default" id="QvC-M9-y7g">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="196" y="240" width="480" height="270"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
+            <view key="contentView" id="EiT-Mj-1SZ">
+                <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <scrollView autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MsN-9R-CX7">
+                        <rect key="frame" x="-1" y="28" width="482" height="243"/>
+                        <clipView key="contentView" id="KpY-lf-4J5">
+                            <rect key="frame" x="1" y="1" width="248" height="158"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <collectionView id="M6U-bs-b4k">
+                                    <rect key="frame" x="0.0" y="0.0" width="248" height="158"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    <connections>
+                                        <binding destination="SVJ-qp-MgD" name="content" keyPath="arrangedObjects" id="dPi-sR-giz"/>
+                                        <outlet property="itemPrototype" destination="lry-c8-4FD" id="ZP8-jg-b57"/>
+                                    </connections>
+                                </collectionView>
+                            </subviews>
+                        </clipView>
+                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="ZgX-uG-c6W">
+                            <rect key="frame" x="1" y="144" width="233" height="15"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </scroller>
+                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="RcH-hQ-IJz">
+                            <rect key="frame" x="234" y="1" width="15" height="143"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </scroller>
+                    </scrollView>
+                    <button translatesAutoresizingMaskIntoConstraints="NO" id="Lky-Ah-z52">
+                        <rect key="frame" x="397" y="4" width="25" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="25" id="OSa-3K-VhZ"/>
+                            <constraint firstAttribute="height" constant="20" id="mah-bm-pz5"/>
+                        </constraints>
+                        <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="NSLeftFacingTriangleTemplate" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="t5N-Xh-vKO">
+                            <behavior key="behavior" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="previous:" target="-2" id="w8i-eE-3nc"/>
+                        </connections>
+                    </button>
+                    <button translatesAutoresizingMaskIntoConstraints="NO" id="KVp-FW-gsG">
+                        <rect key="frame" x="364" y="4" width="25" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="Hzu-KU-UYl"/>
+                            <constraint firstAttribute="width" constant="25" id="oqs-la-KeC"/>
+                        </constraints>
+                        <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="NSRefreshTemplate" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="W0x-Fl-rIV">
+                            <behavior key="behavior" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="refresh:" target="-2" id="rTb-zm-SQS"/>
+                        </connections>
+                    </button>
+                    <button translatesAutoresizingMaskIntoConstraints="NO" id="S7m-eP-lwf">
+                        <rect key="frame" x="430" y="4" width="25" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="25" id="c1L-xd-KtE"/>
+                            <constraint firstAttribute="height" constant="20" id="f7V-U1-CZz"/>
+                        </constraints>
+                        <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="NSRightFacingTriangleTemplate" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="hnv-wO-dSV">
+                            <behavior key="behavior" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="next:" target="-2" id="4av-HC-0Jq"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="MsN-9R-CX7" secondAttribute="trailing" constant="-1" id="2Ih-1W-5w0"/>
+                    <constraint firstItem="S7m-eP-lwf" firstAttribute="leading" secondItem="Lky-Ah-z52" secondAttribute="trailing" constant="8" id="2ZD-lE-uWY"/>
+                    <constraint firstAttribute="bottom" secondItem="S7m-eP-lwf" secondAttribute="bottom" constant="4" id="8uc-04-Ixw"/>
+                    <constraint firstItem="MsN-9R-CX7" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="-1" id="Bel-tR-zme"/>
+                    <constraint firstAttribute="bottom" secondItem="KVp-FW-gsG" secondAttribute="bottom" constant="4" id="DHD-2V-ftU"/>
+                    <constraint firstAttribute="trailing" secondItem="S7m-eP-lwf" secondAttribute="trailing" constant="25" id="Eij-nq-rfY"/>
+                    <constraint firstAttribute="bottom" secondItem="Lky-Ah-z52" secondAttribute="bottom" constant="4" id="O6a-50-z8h"/>
+                    <constraint firstItem="MsN-9R-CX7" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" constant="-1" id="ihQ-sL-1K5"/>
+                    <constraint firstItem="KVp-FW-gsG" firstAttribute="top" secondItem="MsN-9R-CX7" secondAttribute="bottom" constant="4" id="ijr-6C-6UW"/>
+                    <constraint firstItem="Lky-Ah-z52" firstAttribute="leading" secondItem="KVp-FW-gsG" secondAttribute="trailing" constant="8" id="yYG-CE-oAB"/>
+                </constraints>
+            </view>
+            <connections>
+                <outlet property="delegate" destination="-2" id="nsC-4V-ehy"/>
+            </connections>
+            <point key="canvasLocation" x="290" y="251"/>
+        </window>
+        <arrayController id="SVJ-qp-MgD"/>
+        <collectionViewItem id="lry-c8-4FD">
+            <connections>
+                <outlet property="view" destination="MjY-nh-XZL" id="aL3-sv-h3C"/>
+            </connections>
+        </collectionViewItem>
+        <view id="MjY-nh-XZL">
+            <rect key="frame" x="0.0" y="0.0" width="100" height="135"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <subviews>
+                <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c7n-ES-08q">
+                    <rect key="frame" x="0.0" y="35" width="100" height="100"/>
+                    <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <connections>
+                        <binding destination="lry-c8-4FD" name="value" keyPath="representedObject.color" id="Igf-s0-0G8"/>
+                    </connections>
+                </colorWell>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1zg-Cu-Kc8">
+                    <rect key="frame" x="0.0" y="6" width="100" height="24"/>
+                    <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" alignment="center" title="Multiline Label" id="n9d-MD-Evr">
+                        <font key="font" metaFont="miniSystem"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <connections>
+                        <binding destination="lry-c8-4FD" name="value" keyPath="representedObject.name" id="OBi-HR-rXR"/>
+                    </connections>
+                </textField>
+            </subviews>
+        </view>
+    </objects>
+    <resources>
+        <image name="NSLeftFacingTriangleTemplate" width="9" height="12"/>
+        <image name="NSRefreshTemplate" width="11" height="15"/>
+        <image name="NSRightFacingTriangleTemplate" width="9" height="12"/>
+    </resources>
+</document>
