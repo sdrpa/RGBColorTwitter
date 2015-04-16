@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6751"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7531"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="RBGWindowController">
@@ -47,7 +47,7 @@
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>
-                    <button translatesAutoresizingMaskIntoConstraints="NO" id="Lky-Ah-z52">
+                    <button hidden="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lky-Ah-z52">
                         <rect key="frame" x="397" y="4" width="25" height="20"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="25" id="OSa-3K-VhZ"/>
@@ -59,9 +59,14 @@
                         </buttonCell>
                         <connections>
                             <action selector="previous:" target="-2" id="w8i-eE-3nc"/>
+                            <binding destination="-2" name="enabled" keyPath="self.fetching" id="x3H-y8-4TO">
+                                <dictionary key="options">
+                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                </dictionary>
+                            </binding>
                         </connections>
                     </button>
-                    <button translatesAutoresizingMaskIntoConstraints="NO" id="KVp-FW-gsG">
+                    <button hidden="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KVp-FW-gsG">
                         <rect key="frame" x="364" y="4" width="25" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="Hzu-KU-UYl"/>
@@ -73,6 +78,11 @@
                         </buttonCell>
                         <connections>
                             <action selector="refresh:" target="-2" id="rTb-zm-SQS"/>
+                            <binding destination="-2" name="enabled" keyPath="self.fetching" id="4Oa-zA-jTh">
+                                <dictionary key="options">
+                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                </dictionary>
+                            </binding>
                         </connections>
                     </button>
                     <button translatesAutoresizingMaskIntoConstraints="NO" id="S7m-eP-lwf">
@@ -87,10 +97,26 @@
                         </buttonCell>
                         <connections>
                             <action selector="next:" target="-2" id="4av-HC-0Jq"/>
+                            <binding destination="-2" name="enabled" keyPath="self.fetching" id="46R-8p-5Kf">
+                                <dictionary key="options">
+                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                </dictionary>
+                            </binding>
                         </connections>
                     </button>
+                    <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="QUb-eg-FMi">
+                        <rect key="frame" x="20" y="6" width="16" height="16"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="16" id="MGd-86-LO6"/>
+                            <constraint firstAttribute="width" constant="16" id="ova-Ld-nwt"/>
+                        </constraints>
+                        <connections>
+                            <binding destination="-2" name="animate" keyPath="self.fetching" id="kGl-32-eMk"/>
+                        </connections>
+                    </progressIndicator>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="bottom" secondItem="QUb-eg-FMi" secondAttribute="bottom" constant="6" id="29A-Xg-gK6"/>
                     <constraint firstAttribute="trailing" secondItem="MsN-9R-CX7" secondAttribute="trailing" constant="-1" id="2Ih-1W-5w0"/>
                     <constraint firstItem="S7m-eP-lwf" firstAttribute="leading" secondItem="Lky-Ah-z52" secondAttribute="trailing" constant="8" id="2ZD-lE-uWY"/>
                     <constraint firstAttribute="bottom" secondItem="S7m-eP-lwf" secondAttribute="bottom" constant="4" id="8uc-04-Ixw"/>
@@ -98,6 +124,7 @@
                     <constraint firstAttribute="bottom" secondItem="KVp-FW-gsG" secondAttribute="bottom" constant="4" id="DHD-2V-ftU"/>
                     <constraint firstAttribute="trailing" secondItem="S7m-eP-lwf" secondAttribute="trailing" constant="25" id="Eij-nq-rfY"/>
                     <constraint firstAttribute="bottom" secondItem="Lky-Ah-z52" secondAttribute="bottom" constant="4" id="O6a-50-z8h"/>
+                    <constraint firstItem="QUb-eg-FMi" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="20" id="SuS-wh-UVo"/>
                     <constraint firstItem="MsN-9R-CX7" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" constant="-1" id="ihQ-sL-1K5"/>
                     <constraint firstItem="KVp-FW-gsG" firstAttribute="top" secondItem="MsN-9R-CX7" secondAttribute="bottom" constant="4" id="ijr-6C-6UW"/>
                     <constraint firstItem="Lky-Ah-z52" firstAttribute="leading" secondItem="KVp-FW-gsG" secondAttribute="trailing" constant="8" id="yYG-CE-oAB"/>

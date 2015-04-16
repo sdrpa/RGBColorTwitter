@@ -9,6 +9,7 @@ typedef void (^RGBClientColorListCompletion)(id colorsOrError);
 
 + (instancetype)sharedInstance;
 
+- (void)initialColorListWithCount:(NSUInteger)count completion:(RGBClientColorListCompletion)completion;
 - (void)colorListSinceID:(NSString *)sinceID maxID:(NSString *)maxID count:(NSUInteger)count completion:(RGBClientColorListCompletion)completion;
 
 @end

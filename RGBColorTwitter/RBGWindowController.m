@@ -8,12 +8,23 @@
 #import "RGBColorModel.h"
 
 @interface RBGWindowController () {
+   BOOL _hasDoneInitialRequest; // An application’s first request to a timeline endpoint should only specify a count
    NSString *_sinceID, *_maxID;
 }
 @property (weak) IBOutlet NSArrayController *arrayController;
+@property (assign) BOOL fetching;
 @end
 
 @implementation RBGWindowController
+
+- (instancetype)initWithWindowNibName:(NSString *)windowNibName {
+   self = [super initWithWindowNibName:windowNibName];
+   if (self) {
+      _sinceID = nil;
+      _maxID = nil;
+   }
+   return self;
+}
 
 - (void)windowDidLoad {
    [super windowDidLoad];
@@ -23,19 +34,24 @@
 
 - (void)reloadDataWithStatuses:(NSArray *)statuses {
    //NSLog(@"statuses: %@", statuses);
+   NSMutableArray *newStatuses = [NSMutableArray arrayWithCapacity:[statuses count]];
    for (NSDictionary *status in statuses) {
       RGBColorModel *colorModel = [self colorModelFromStatusDictionary:status];
       if (![[_arrayController arrangedObjects] containsObject:colorModel]) {
-         [_arrayController addObject:colorModel];
+         [newStatuses addObject:colorModel];
       }
    }
+   
+   //NSLog(@"newStatuses (%li): %@", [newStatuses count], newStatuses);
+   [_arrayController addObjects:newStatuses];
+   
    RGBColorModel *first = [[_arrayController arrangedObjects] firstObject];
    RGBColorModel *last = [[_arrayController arrangedObjects] lastObject];
    
    _sinceID = first.tweetID;
    _maxID = last.tweetID;
    
-   NSLog(@"_arrayController (%li): %@", [[_arrayController arrangedObjects] count], [_arrayController arrangedObjects]);
+   //NSLog(@"_arrayController (%li): %@", [[_arrayController arrangedObjects] count], [_arrayController arrangedObjects]);
 }
 
 - (RGBColorModel *)colorModelFromStatusDictionary:(NSDictionary *)status {
@@ -74,10 +90,24 @@
 }
 
 - (IBAction)refresh:(id)sender {
-   _sinceID = nil;
-   [[RGBClient sharedInstance] colorListSinceID:_sinceID maxID:nil count:20 completion:^(id statuses) {
-      [self reloadDataWithStatuses:statuses];
-   }];
+   self.fetching = YES;
+   RBGWindowController __weak *weakSelf = self;
+   
+   RGBClient *client = [RGBClient sharedInstance];
+   if (!_hasDoneInitialRequest) {
+      _hasDoneInitialRequest = YES;
+      
+      [client initialColorListWithCount:20 completion:^(id statuses) {
+         weakSelf.fetching = NO;
+         [self reloadDataWithStatuses:statuses];
+      }];
+   }
+   else {
+      [client colorListSinceID:nil maxID:_maxID count:20 completion:^(id statuses) {
+         weakSelf.fetching = NO;
+         [self reloadDataWithStatuses:statuses];
+      }];
+   }
 }
 
 - (IBAction)previous:(id)sender {
@@ -85,7 +115,11 @@
 }
 
 - (IBAction)next:(id)sender {
-   [[RGBClient sharedInstance] colorListSinceID:_maxID maxID:nil count:20 completion:^(id statuses) {
+   self.fetching = YES;
+   RBGWindowController __weak *weakSelf = self;
+   
+   [[RGBClient sharedInstance] colorListSinceID:nil maxID:_maxID count:20 completion:^(id statuses) {
+      weakSelf.fetching = NO;
       [self reloadDataWithStatuses:statuses];
    }];
 }

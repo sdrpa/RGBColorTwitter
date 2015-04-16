@@ -49,6 +49,21 @@
    return [futureData promise];
 }
 
+- (void)initialColorListWithCount:(NSUInteger)count completion:(RGBClientColorListCompletion)completion {
+   Promise *promise = [self twitterAPI];
+   [promise when:^(STTwitterAPI *twitter) {
+      [twitter getUserTimelineWithScreenName:@"@RGB_Colours"
+                                       count:count
+                                successBlock:^(NSArray *statuses) {
+                                   completion(statuses);
+                                } errorBlock:^(NSError *error) {
+                                   completion(error);
+                                }];
+   } failed:^(NSError *error) {
+      completion(error);
+   }];
+}
+
 - (void)colorListSinceID:(NSString *)sinceID maxID:(NSString *)maxID count:(NSUInteger)count completion:(RGBClientColorListCompletion)completion {
    Promise *promise = [self twitterAPI];
    [promise when:^(STTwitterAPI *twitter) {
